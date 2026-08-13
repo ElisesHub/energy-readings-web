@@ -1,5 +1,8 @@
 import {z}  from 'zod'
 import { useQuery } from "@tanstack/react-query";
+
+const API_URL = "http://localhost:8000";
+
 export const ReadingSchema = z.object({
     id: z.number().int(),
     meterId: z.string(),
@@ -16,7 +19,7 @@ export function GetReadings() {
         queryKey: ['readings'],
         queryFn: async () => {
             const response = await fetch(
-                'http://localhost:8000/readings',
+                `${API_URL}/readings`,
             )
             if (!response.ok) {
                 throw new Error(`Readings request failed: ${response.status}`)
@@ -25,11 +28,42 @@ export function GetReadings() {
         },
     });
 }
+export function GetReading(id: number) {
+    return useQuery({
+        queryKey: ["readings", id],
+        queryFn: async () => {
+            const response = await fetch(`${API_URL}/readings/${id}`);
+            if (!response.ok) {
+                throw new Error(`Reading request failed: ${response.status}`);
+            }
+            return ReadingSchema.parse(await response.json());
+        },
+        enabled: Number.isFinite(id),
+    });
+}
 
+export function GetAggregateDaily(
+    meterId: string,
+    readingType: ReadingType,
+    from: string,
+    to: string,
+) {
+    const params = new URLSearchParams({
+        meter_id: meterId,
+        reading_type: readingType,
+        from,
+        to,
+    });
 
-
-
-
-
-
-
+    return useQuery({
+        queryKey: ["aggregates", "daily", meterId, readingType, from, to],
+        queryFn: async () => {
+            const response = await fetch(`${API_URL}/aggregates/daily?${params}`);
+            if (!response.ok) {
+                throw new Error(`Daily aggregates request failed: ${response.status}`);
+            }
+            return DailyAggregatesList.parse(await response.json());
+        },
+        enabled: Boolean(meterId && from && to),
+    });
+}
