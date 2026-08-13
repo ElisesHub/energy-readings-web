@@ -1,22 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {createBrowserRouter ,RouterProvider } from 'react-router-dom';
+import {
+    createBrowserRouter,
+    RouterProvider
+} from 'react-router-dom';
+import {
+    QueryClient,
+    QueryClientProvider
+} from '@tanstack/react-query';
 import './index.css'
 import App from './App.tsx'
-import NotFoundPage from "./pages/errors/NotFoundPage.tsx";
-    const router = createBrowserRouter([
-        { path: '/', element: <App/>,
-            errorElement : <NotFoundPage />
-        },
-        { path: '/test', element: <div><br/><br/><h1>Yay!</h1> <br/><br/><h2>You found something</h2><br/><br/><p>And it's awesome </p></div>,
-            errorElement : <div><h1>404 not found</h1><br/><br/>We didn't find what you were looking for </div>
-        }
-    ]);
+import NotFoundPage
+    from "./pages/errors/NotFoundPage.tsx";
+import DailyAggregatesPage from "./pages/DailyAggregatesPage.tsx";
+import ReadingsPage from "./pages/ReadingsPage.tsx";
+import ReadingPage from "./pages/ReadingPage.tsx";
+import Layout from "./components/Layout.tsx";
 
- ReactDOM.createRoot(document.getElementById('root')!).render
- (
-     <React.StrictMode>
-         <RouterProvider router={router}/>
-     </React.StrictMode>,
- );
+
+const queryClient = new QueryClient();
+const router = createBrowserRouter([
+    {
+        element: <Layout />,
+        errorElement: <NotFoundPage />,
+        children: [
+            { index: true, element: <App/> },
+            { path: '/readings', element: <ReadingsPage /> },
+            { path: '/readings/:id', element: <ReadingPage /> },
+            { path: '/dailyaggs', element: <DailyAggregatesPage /> },
+            { path: '*', element: <NotFoundPage /> },
+        ],
+    },
+]);
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+        <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router}/>
+        </QueryClientProvider>
+    </React.StrictMode>,
+);
 
