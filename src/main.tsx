@@ -13,8 +13,8 @@ import App from './App.tsx'
 import NotFoundPage
     from "./pages/errors/NotFoundPage.tsx";
 import DailyAggregatesPage from "./pages/DailyAggregatesPage.tsx";
-import ReadingsPage from "./pages/ReadingsPage.tsx";
-import ReadingPage from "./pages/ReadingPage.tsx";
+import ReadingsPage from "./pages/ReadingsListPage.tsx";
+import ReadingPage from "./pages/ReadingDetailPage.tsx";
 import Layout from "./components/Layout.tsx";
 
 

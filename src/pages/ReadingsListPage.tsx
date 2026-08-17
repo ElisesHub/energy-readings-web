@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
-import { GetReadings } from "../api/readings";
+import { useReadingsQuery } from "../api/readings";
 
-export default function ReadingsPage() {
+export default function ReadingsListPage() {
 
-    const { isPending, error, data } = GetReadings();
+    const { isPending, error, data } = useReadingsQuery();
 
     if (isPending) return 'Loading...'
 
