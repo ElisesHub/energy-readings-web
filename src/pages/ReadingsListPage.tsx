@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
-import { useReadingsQuery } from "../api/readings";
+import { useReadingListQuery } from "../api/readings/readings.hooks.ts";
 
 export default function ReadingsListPage() {
 
-    const { isPending, error, data } = useReadingsQuery();
+    const { isPending, error, data } = useReadingListQuery();
 
     if (isPending) return 'Loading...'
 
