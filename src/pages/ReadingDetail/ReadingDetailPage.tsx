@@ -1,20 +1,18 @@
-import { useParams } from "react-router";
-import { z } from "zod";
-import { useReadingQuery } from "../api/readings";
+import { useReadingDetailQuery } from "../../api/readings/readings.hooks.ts";
+import {useLoaderData} from "react-router-dom";
 
-const Id = z.coerce.number().int().positive();
+
+
 export default function ReadingDetailPage()
 {
-    const { id } = useParams();
-    const parsed = Id.safeParse(id);
 
 
-    if (!parsed.success) return <p>Invalid reading id.</p>;
+    const { id } = useLoaderData() as { id: number };
+    const { isPending, error, data } = useReadingDetailQuery(id);
 
-    const { isPending, error, data } = useReadingQuery(parsed.data);
 
     if (isPending) return <p>Loading…</p>;
-    if (error) return <p>An error has occurred: {error.message}</p>;
+    if (error) return <p>We couldn't find that: {error.message}</p>;
 
 
 
@@ -53,12 +51,5 @@ export default function ReadingDetailPage()
             </dl>
         </div>
     );
-
-
-
-
-
-
-
 
 }
