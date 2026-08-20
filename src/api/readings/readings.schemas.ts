@@ -16,4 +16,3 @@ export const ReadingSchema = z.object({
 export const ReadingsList = z.array(ReadingSchema);
 export type Reading = z.infer<typeof ReadingSchema>
 
-

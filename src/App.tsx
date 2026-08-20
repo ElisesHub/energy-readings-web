@@ -6,7 +6,7 @@ export default function App() {
             <h1>Welcome</h1>
             <h3>Where would you like to go?</h3>
             <div className="flex flex-row">
-                <Link to="/dailyaggs">Daily Aggregates</Link>
+                <Link to="/summaries/daily">Daily Aggregates</Link>
                 <Link to="/readings">Readings</Link>
             </div>
         </div>

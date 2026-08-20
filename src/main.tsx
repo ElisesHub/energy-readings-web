@@ -10,7 +10,7 @@ import {
 } from '@tanstack/react-query';
 import './index.css'
 import App from './App.tsx'
-import DailySummariesPage from "./pages/DailySummariesPage.tsx";
+import DailySummariesPage from "./pages/Summaries/DailySummariesPage.tsx";
 import ReadingsListPage from "./pages/ReadingsListPage.tsx";
 import ReadingDetailPage from "./pages/ReadingDetail/ReadingDetailPage.tsx";
 import Layout from "./components/Layout.tsx";
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
                     { index: true, element: <App /> },
                     { path: '/readings', element: <ReadingsListPage /> },
                     { path: '/readings/:id', element: <ReadingDetailPage />, loader: readingDetailLoader },
-                    { path: '/dailyaggs', element: <DailySummariesPage /> },
+                    { path: '/summaries/daily', element: <DailySummariesPage /> },
                     { path: '*',
                         loader: () =>
                             {

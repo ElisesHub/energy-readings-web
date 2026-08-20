@@ -17,7 +17,7 @@ export default function Layout() {
                     <NavLink to="/readings" className={navLinkClass}>
                         Readings
                     </NavLink>
-                    <NavLink to="/dailyaggs" className={navLinkClass}>
+                    <NavLink to="/summaries/daily" className={navLinkClass}>
                         Daily Aggregates
                     </NavLink>
                 </nav>
